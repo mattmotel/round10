@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        #boot {
+            font-size: 8rem;
+            margin-bottom: 10px;
+        }
+
+        #result {
+            font-size: 4rem;
+            margin: 30px auto;
+            font-weight: bold;
+            border: 2px solid #f39c12;
+            padding: 20px;
+            width: 220px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: none;
+            background-color: #f39c12;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #e67e22;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 1rem;
+            width: 80px;
+        }
+
+        h1 {
+            font-weight: bold;
+        }
+
+        h1 span {
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="boot">🥾</div>
+        <h1>The Hard Times Music League <br/>
+            <span>Round 10 Number Generator</span>
+        </h1>
+        <label for="min">Min: </label>
+        <input type="number" id="min" placeholder="Min" value="1">
+        <label for="max">Max: </label>
+        <input type="number" id="max" placeholder="Max" value="100">
+        <br>
+        <button onclick="startSlot()">Go!</button>
+
+        <div id="result">0</div>
+    </div>
+
+    <script>
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function startSlot() {
+            const min = parseInt(document.getElementById('min').value);
+            const max = parseInt(document.getElementById('max').value);
+            let resultElement = document.getElementById('result');
+            let interval;
+
+            // Cycle through numbers like a slot machine
+            let counter = 0;
+            interval = setInterval(() => {
+                resultElement.textContent = getRandomInt(min, max);
+                counter++;
+                if (counter > 30) { // cycle for 5 seconds
+                    clearInterval(interval);
+                    finalResult(min, max);
+                }
+            }, 80); // change number every 80ms for smoother transition
+        }
+
+        function finalResult(min, max) {
+            const finalNumber = getRandomInt(min, max);
+            let resultElement = document.getElementById('result');
+            setTimeout(() => {
+                resultElement.textContent = finalNumber;
+                resultElement.style.background = 'linear-gradient(135deg, #3498db, #2ecc71)';
+                resultElement.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.8)';
+            }, 500);
+        }
+    </script>
+
+</body>
+</html>
