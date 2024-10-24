@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Number Generator</title>
+    <title>Hard Random Number Generator</title>
     <style>
         body {
             display: flex;
@@ -39,6 +39,7 @@
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
             animation: pulse 1s infinite;
+            transition: background 1.5s ease, box-shadow 1.5s ease, transform 0.2s ease-in-out;
         }
 
         @keyframes pulse {
@@ -109,6 +110,9 @@
             const min = parseInt(document.getElementById('min').value);
             const max = parseInt(document.getElementById('max').value);
             let resultElement = document.getElementById('result');
+            resultElement.style.background = 'linear-gradient(135deg, #e74c3c, #f39c12)';
+            resultElement.style.boxShadow = '0 0 15px rgba(0, 0, 0, 0.5)';
+            resultElement.style.transform = 'scale(1)';
             let interval;
 
             // Cycle through numbers like a slot machine
@@ -130,6 +134,10 @@
                 resultElement.textContent = finalNumber;
                 resultElement.style.background = 'linear-gradient(135deg, #3498db, #2ecc71)';
                 resultElement.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.8)';
+                resultElement.style.transform = 'scale(1.5)'; // Quick burst effect
+                setTimeout(() => {
+                    resultElement.style.transform = 'scale(1)'; // Reset to normal size
+                }, 200); // Reset after 200ms
             }, 500);
         }
     </script>
