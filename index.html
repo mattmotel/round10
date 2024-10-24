@@ -11,18 +11,23 @@
             align-items: center;
             height: 100vh;
             font-family: 'Pixelify Sans', Arial, sans-serif; /* Updated to Pixelify Sans */
-            background-color: #1a1a1a;
+            background-color: #121212;
             color: white;
             overflow: hidden; /* To hide overflowing confetti */
             padding: 20px;
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"%3E%3Crect width="30" height="30" fill="%23121212"/%3E%3Cpath fill="%23222222" d="M0 15h15v15H0zM15 0h15v15H15z"/%3E%3Cpath fill="%23333333" d="M0 0h10v10H0zM20 20h10v10H20z"/%3E%3C/svg%3E');
         }
 
         .container {
             text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
         }
 
         #boot {
-            font-size: 6rem; /* Reduced size of boot emoji */
+            font-size: 5rem; /* Reduced size of boot emoji */
             margin-bottom: 20px; /* Increased margin for more spacing */
         }
 
@@ -30,14 +35,14 @@
             font-size: 4rem;
             margin: 30px auto;
             font-weight: bold;
-            border: 2px solid #555; /* Darker border for contrast */
+            border: 2px solid #444; /* Darker border for contrast */
             padding: 20px;
             width: 220px;
             height: 120px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #333; /* Start with a dark color for the box */
+            background: #222; /* Start with a darker color for the box */
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
             animation: pulse 1s infinite;
@@ -112,6 +117,14 @@
             box-shadow: 0 0 15px #f39c12, 0 0 30px #ff6f00;
             transition: all 0.3s ease;
             font-family: 'Pixelify Sans', Arial, sans-serif; /* Consistent font for button */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button span {
+            margin-left: 10px;
+            font-size: 2rem;
         }
 
         button:hover {
@@ -157,7 +170,6 @@
             font-family: 'Pixelify Sans', Arial, sans-serif;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap">
 </head>
 <body>
@@ -172,7 +184,7 @@
         <label for="max">Max: </label>
         <input type="number" id="max" placeholder="Max" value="100">
         <br>
-        <button onclick="startSlot()">GO!</button>
+        <button onclick="startSlot()">GO! <span>🚀</span></button>
 
         <div id="result">0</div>
     </div>
@@ -188,7 +200,7 @@
             let resultElement = document.getElementById('result');
 
             // Reset to original state
-            resultElement.style.background = '#333'; // Reset to dark color
+            resultElement.style.background = '#222'; // Reset to dark color
             resultElement.style.boxShadow = '0 0 15px rgba(0, 0, 0, 0.5)';
             resultElement.style.transform = 'scale(1)';
             resultElement.style.animation = '';
