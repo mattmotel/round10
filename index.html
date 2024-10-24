@@ -10,7 +10,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: 'VT323', Arial, sans-serif; /* Readable retro-style font */
+            font-family: 'Pixelify Sans', Arial, sans-serif; /* Updated to Pixelify Sans */
             background-color: #1a1a1a;
             color: white;
             overflow: hidden; /* To hide overflowing confetti */
@@ -30,14 +30,14 @@
             font-size: 4rem;
             margin: 30px auto;
             font-weight: bold;
-            border: 2px solid #f39c12;
+            border: 2px solid #555; /* Darker border for contrast */
             padding: 20px;
             width: 220px;
             height: 120px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            background: #333; /* Start with a dark color for the box */
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
             animation: pulse 1s infinite;
@@ -111,7 +111,7 @@
             cursor: pointer;
             box-shadow: 0 0 15px #f39c12, 0 0 30px #ff6f00;
             transition: all 0.3s ease;
-            font-family: 'VT323', Arial, sans-serif; /* Consistent font for button */
+            font-family: 'Pixelify Sans', Arial, sans-serif; /* Consistent font for button */
         }
 
         button:hover {
@@ -137,7 +137,7 @@
             text-align: center;
             box-shadow: 0 0 15px #f39c12;
             transition: box-shadow 0.3s ease, transform 0.3s ease;
-            font-family: 'VT323', Arial, sans-serif; /* Consistent font for input fields */
+            font-family: 'Pixelify Sans', Arial, sans-serif; /* Consistent font for input fields */
         }
 
         input:focus {
@@ -154,9 +154,11 @@
 
         h1 span {
             font-weight: normal;
+            font-family: 'Pixelify Sans', Arial, sans-serif;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap">
 </head>
 <body>
 
@@ -186,7 +188,7 @@
             let resultElement = document.getElementById('result');
 
             // Reset to original state
-            resultElement.style.background = 'linear-gradient(135deg, #e74c3c, #f39c12)';
+            resultElement.style.background = '#333'; // Reset to dark color
             resultElement.style.boxShadow = '0 0 15px rgba(0, 0, 0, 0.5)';
             resultElement.style.transform = 'scale(1)';
             resultElement.style.animation = '';
