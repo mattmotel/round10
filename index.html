@@ -10,39 +10,44 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: 'Pixelify Sans', Arial, sans-serif; /* Updated to Pixelify Sans */
+            font-family: 'Press Start 2P', Arial, sans-serif;
             background-color: #121212;
             color: white;
-            overflow: hidden; /* To hide overflowing confetti */
+            overflow: hidden;
             padding: 20px;
-            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"%3E%3Crect width="30" height="30" fill="%23121212"/%3E%3Cpath fill="%23222222" d="M0 15h15v15H0zM15 0h15v15H15z"/%3E%3Cpath fill="%23333333" d="M0 0h10v10H0zM20 20h10v10H20z"/%3E%3C/svg%3E');
+
+            /* New detailed and smaller pixelated background */
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"%3E%3Crect width="15" height="15" fill="%23121212"/%3E%3Cpath fill="%23222222" d="M0 5h5v5H0zM10 10h5v5h-5z"/%3E%3Cpath fill="%23333333" d="M5 0h5v5H5zM0 10h5v5H0z"/%3E%3Cpath fill="%23444444" d="M10 0h5v5h-5zM5 5h5v5H5z"/%3E%3Cpath fill="%23555555" d="M2 2h3v3H2zM10 7h3v3h-3z"/%3E%3C/svg%3E');
+            background-size: 30px 30px; /* Smaller pixels for more intricate texture */
         }
 
         .container {
             text-align: center;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.6); /* Semi-transparent black for better blending */
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for better contrast */
+            backdrop-filter: blur(4px); /* Slight blur to blend better with the background */
         }
 
         #boot {
-            font-size: 5rem; /* Reduced size of boot emoji */
-            margin-bottom: 20px; /* Increased margin for more spacing */
+            font-size: 5rem;
+            margin-bottom: 20px;
         }
 
         #result {
             font-size: 4rem;
             margin: 30px auto;
             font-weight: bold;
-            border: 2px solid #444; /* Darker border for contrast */
+            border: 2px solid #444;
             padding: 20px;
             width: 220px;
             height: 120px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #222; /* Start with a darker color for the box */
+            background: rgba(34, 34, 34, 0.9);
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
             animation: pulse 1s infinite;
@@ -116,7 +121,7 @@
             cursor: pointer;
             box-shadow: 0 0 15px #f39c12, 0 0 30px #ff6f00;
             transition: all 0.3s ease;
-            font-family: 'Pixelify Sans', Arial, sans-serif; /* Consistent font for button */
+            font-family: 'Press Start 2P', Arial, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -140,7 +145,7 @@
 
         input {
             padding: 15px;
-            margin: 15px; /* Increased margin for more spacing */
+            margin: 15px;
             font-size: 1.5rem;
             width: 100px;
             border: 2px solid #f39c12;
@@ -150,7 +155,7 @@
             text-align: center;
             box-shadow: 0 0 15px #f39c12;
             transition: box-shadow 0.3s ease, transform 0.3s ease;
-            font-family: 'Pixelify Sans', Arial, sans-serif; /* Consistent font for input fields */
+            font-family: 'Press Start 2P', Arial, sans-serif;
         }
 
         input:focus {
@@ -161,16 +166,17 @@
 
         h1 {
             font-weight: bold;
-            font-size: 2rem;
-            margin-bottom: 30px; /* Increased spacing for a cleaner layout */
+            font-size: 1rem;
+            margin-bottom: 30px;
         }
 
         h1 span {
             font-weight: normal;
-            font-family: 'Pixelify Sans', Arial, sans-serif;
+
         }
     </style>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -183,11 +189,9 @@
         <input type="number" id="min" placeholder="Min" value="1">
         <label for="max">Max: </label>
         <input type="number" id="max" placeholder="Max" value="100">
-        <br>
         <div style="display: flex; justify-content: center; margin-top: 20px;">
             <button onclick="startSlot()">GO! <span>🚀</span></button>
         </div>
-
         <div id="result">0</div>
     </div>
 
@@ -202,7 +206,7 @@
             let resultElement = document.getElementById('result');
 
             // Reset to original state
-            resultElement.style.background = '#222'; // Reset to dark color
+            resultElement.style.background = 'rgba(34, 34, 34, 0.9)';
             resultElement.style.boxShadow = '0 0 15px rgba(0, 0, 0, 0.5)';
             resultElement.style.transform = 'scale(1)';
             resultElement.style.animation = '';
@@ -214,11 +218,11 @@
             interval = setInterval(() => {
                 resultElement.textContent = getRandomInt(min, max);
                 counter++;
-                if (counter > 30) { // cycle for 5 seconds
+                if (counter > 30) {
                     clearInterval(interval);
                     finalResult(min, max);
                 }
-            }, 80); // change number every 80ms for smoother transition
+            }, 80);
         }
 
         function finalResult(min, max) {
@@ -233,7 +237,7 @@
 
                 // Ensure final state is green and doesn't reset
                 setTimeout(() => {
-                    resultElement.style.animation = ''; // Clear animation
+                    resultElement.style.animation = '';
                     resultElement.style.background = 'linear-gradient(135deg, #3498db, #2ecc71)';
                 }, 400);
             }, 500);
