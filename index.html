@@ -10,10 +10,11 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: Arial, sans-serif;
+            font-family: 'VT323', Arial, sans-serif; /* Readable retro-style font */
             background-color: #1a1a1a;
             color: white;
             overflow: hidden; /* To hide overflowing confetti */
+            padding: 20px;
         }
 
         .container {
@@ -21,8 +22,8 @@
         }
 
         #boot {
-            font-size: 8rem;
-            margin-bottom: 10px;
+            font-size: 6rem; /* Reduced size of boot emoji */
+            margin-bottom: 20px; /* Increased margin for more spacing */
         }
 
         #result {
@@ -101,34 +102,61 @@
         }
 
         button {
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            border: none;
-            background-color: #f39c12;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            border: 2px solid #f39c12;
+            background-color: #ff6f00;
             color: white;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
+            box-shadow: 0 0 15px #f39c12, 0 0 30px #ff6f00;
+            transition: all 0.3s ease;
+            font-family: 'VT323', Arial, sans-serif; /* Consistent font for button */
         }
 
         button:hover {
-            background-color: #e67e22;
+            background-color: #ff8c1a;
+            box-shadow: 0 0 30px #ffb347, 0 0 60px #ff6f00;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 10px #ff4500, 0 0 20px #ff4500;
         }
 
         input {
-            padding: 10px;
-            margin: 10px;
-            font-size: 1rem;
-            width: 80px;
+            padding: 15px;
+            margin: 15px; /* Increased margin for more spacing */
+            font-size: 1.5rem;
+            width: 100px;
+            border: 2px solid #f39c12;
+            border-radius: 10px;
+            background-color: #333;
+            color: #ffdf00;
+            text-align: center;
+            box-shadow: 0 0 15px #f39c12;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            font-family: 'VT323', Arial, sans-serif; /* Consistent font for input fields */
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 30px #ffb347;
+            transform: scale(1.1);
         }
 
         h1 {
             font-weight: bold;
+            font-size: 2rem;
+            margin-bottom: 30px; /* Increased spacing for a cleaner layout */
         }
 
         h1 span {
             font-weight: normal;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -142,7 +170,7 @@
         <label for="max">Max: </label>
         <input type="number" id="max" placeholder="Max" value="100">
         <br>
-        <button onclick="startSlot()">Go!</button>
+        <button onclick="startSlot()">GO!</button>
 
         <div id="result">0</div>
     </div>
