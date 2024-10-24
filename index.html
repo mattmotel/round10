@@ -13,6 +13,7 @@
             font-family: Arial, sans-serif;
             background-color: #1a1a1a;
             color: white;
+            overflow: hidden; /* To hide overflowing confetti */
         }
 
         .container {
@@ -40,6 +41,7 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
             animation: pulse 1s infinite;
             transition: background 1.5s ease, box-shadow 1.5s ease, transform 0.2s ease-in-out;
+            position: relative;
         }
 
         @keyframes pulse {
@@ -51,6 +53,50 @@
             }
             100% {
                 transform: scale(1);
+            }
+        }
+
+        @keyframes burst {
+            0% {
+                transform: scale(1) rotate(0deg);
+                background: linear-gradient(135deg, #e74c3c, #f39c12);
+            }
+            50% {
+                transform: scale(2) rotate(360deg);
+                background: linear-gradient(135deg, #ff00ff, #ffff00);
+                box-shadow: 0 0 50px rgba(255, 255, 255, 0.9);
+            }
+            100% {
+                transform: scale(1) rotate(720deg);
+                background: linear-gradient(135deg, #3498db, #2ecc71);
+            }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            opacity: 0.8;
+            transform: rotate(0deg);
+            animation: confetti-fall 1.5s ease-out forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) rotate(360deg);
+                opacity: 0;
             }
         }
 
@@ -110,9 +156,13 @@
             const min = parseInt(document.getElementById('min').value);
             const max = parseInt(document.getElementById('max').value);
             let resultElement = document.getElementById('result');
+
+            // Reset to original state
             resultElement.style.background = 'linear-gradient(135deg, #e74c3c, #f39c12)';
             resultElement.style.boxShadow = '0 0 15px rgba(0, 0, 0, 0.5)';
             resultElement.style.transform = 'scale(1)';
+            resultElement.style.animation = '';
+
             let interval;
 
             // Cycle through numbers like a slot machine
@@ -132,13 +182,46 @@
             let resultElement = document.getElementById('result');
             setTimeout(() => {
                 resultElement.textContent = finalNumber;
-                resultElement.style.background = 'linear-gradient(135deg, #3498db, #2ecc71)';
-                resultElement.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.8)';
-                resultElement.style.transform = 'scale(1.5)'; // Quick burst effect
+
+                // Apply burst and confetti effect
+                resultElement.style.animation = 'burst 0.4s ease-out, shake 0.2s ease-in-out';
+                createConfetti(resultElement);
+
+                // Ensure final state is green and doesn't reset
                 setTimeout(() => {
-                    resultElement.style.transform = 'scale(1)'; // Reset to normal size
-                }, 200); // Reset after 200ms
+                    resultElement.style.animation = ''; // Clear animation
+                    resultElement.style.background = 'linear-gradient(135deg, #3498db, #2ecc71)';
+                }, 400);
             }, 500);
+        }
+
+        function createConfetti(element) {
+            const confettiColors = ['#ff3838', '#ff9f1a', '#ffb8b8', '#32ff7e', '#7efff5', '#18dcff', '#7d5fff'];
+            const numberOfConfetti = 30;
+
+            for (let i = 0; i < numberOfConfetti; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+
+                // Set random x and y values for animation
+                const x = `${Math.random() * 400 - 200}px`;
+                const y = `${Math.random() * 400 - 200}px`;
+                confetti.style.setProperty('--x', x);
+                confetti.style.setProperty('--y', y);
+
+                // Set initial position to the center of the result element
+                confetti.style.left = '50%';
+                confetti.style.top = '50%';
+                confetti.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`;
+
+                element.appendChild(confetti);
+
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, 1500);
+            }
         }
     </script>
 
