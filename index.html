@@ -286,6 +286,23 @@
   </div>
 
   <script>
+
+    // Set boot emoji as the default favicon
+   function setEmojiFavicon(emoji) {
+     const canvas = document.createElement('canvas');
+     canvas.width = 64;
+     canvas.height = 64;
+     const ctx = canvas.getContext('2d');
+     ctx.font = '64px sans-serif';
+     ctx.fillText(emoji, 0, 64);
+
+     const favicon = document.getElementById('dynamic-favicon');
+     favicon.href = canvas.toDataURL();
+   }
+
+   // Set the default boot emoji favicon when the page loads
+   setEmojiFavicon('🥾');
+   
     function getRandomInt(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
