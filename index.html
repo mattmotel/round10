@@ -231,10 +231,27 @@
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&display=swap" rel="stylesheet">
-
+     <link rel="icon" id="dynamic-favicon">
 
 </head>
 <body>
+  <script>
+       // Function to set emoji as the favicon
+       function setEmojiFavicon(emoji) {
+           const canvas = document.createElement('canvas');
+           canvas.width = 64;
+           canvas.height = 64;
+           const ctx = canvas.getContext('2d');
+           ctx.font = '64px serif';
+           ctx.fillText(emoji, 0, 64);
+
+           const favicon = document.getElementById('dynamic-favicon');
+           favicon.href = canvas.toDataURL();
+       }
+
+       // Call the function with the boot emoji
+       setEmojiFavicon('🥾');
+   </script>
 
     <div class="container">
         <div id="boot">🥾</div>
