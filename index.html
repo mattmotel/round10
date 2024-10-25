@@ -254,6 +254,72 @@
       font-weight: normal;
 
     }
+    @media (max-width: 600px) {
+    .input-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    #min-container, #max-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%; /* Make sure each container takes full width */
+    }
+
+    #min-container label,
+    #max-container label {
+      width: 40px; /* Set the same width for both labels */
+      margin-right: 0px;
+      text-align: right; /* Optional: Align text to the right for a cleaner look */
+    }
+
+    /* Add left margin for shuffle icons on mobile */
+    #min-container .shuffle-icon,
+    #max-container .shuffle-icon {
+      margin-left: 5px; /* Adjust this value as needed */
+    }
+
+    /* Other mobile styles */
+    .container {
+      padding: 16px;
+      transform: scale(0.9);
+    }
+
+    #boot {
+      font-size: 3.2rem;
+    }
+
+    h1 {
+      font-size: 0.8rem;
+      margin-bottom: 24px;
+    }
+
+    #result {
+      font-size: 3.2rem;
+      padding: 16px;
+      width: 180px;
+      height: 100px;
+    }
+
+    button {
+      padding: 16px 32px;
+      font-size: 1.2rem;
+    }
+
+    button span {
+      margin-left: 8px;
+      font-size: 1.6rem;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 1.2rem;
+      margin: 12px;
+      width: 80px;
+    }
+  }
+
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&display=swap" rel="stylesheet">
   <link rel="icon" id="dynamic-favicon">
