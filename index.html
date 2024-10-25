@@ -16,19 +16,18 @@
             overflow: hidden;
             padding: 20px;
 
-            /* New detailed and smaller pixelated background */
             background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"%3E%3Crect width="15" height="15" fill="%23121212"/%3E%3Cpath fill="%23222222" d="M0 5h5v5H0zM10 10h5v5h-5z"/%3E%3Cpath fill="%23333333" d="M5 0h5v5H5zM0 10h5v5H0z"/%3E%3Cpath fill="%23444444" d="M10 0h5v5h-5zM5 5h5v5H5z"/%3E%3Cpath fill="%23555555" d="M2 2h3v3H2zM10 7h3v3h-3z"/%3E%3C/svg%3E');
-            background-size: 60px 60px; /* Smaller pixels for more intricate texture */
+            background-size: 60px 60px;
         }
 
         .container {
             text-align: center;
-            background: rgba(0, 0, 0, 0.6); /* Semi-transparent black for better blending */
+            background: rgba(0, 0, 0, 0.6);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for better contrast */
-            backdrop-filter: blur(4px); /* Slight blur to blend better with the background */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
         }
 
         #boot {
@@ -67,29 +66,30 @@
             }
         }
 
-        @keyframes burst {
-            0% {
-                transform: scale(1) rotate(0deg);
-                background: linear-gradient(135deg, #e74c3c, #f39c12);
-            }
-            50% {
-                transform: scale(2) rotate(360deg);
-                background: linear-gradient(135deg, #ff00ff, #ffff00);
-                box-shadow: 0 0 50px rgba(255, 255, 255, 0.9);
-            }
-            100% {
-                transform: scale(1) rotate(720deg);
-                background: linear-gradient(135deg, #3498db, #2ecc71);
-            }
-        }
 
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
-        }
+        @keyframes burst {
+                  0% {
+                      transform: scale(1) rotate(0deg);
+                      background: linear-gradient(135deg, #e74c3c, #f39c12);
+                  }
+                  50% {
+                      transform: scale(2) rotate(360deg);
+                      background: linear-gradient(135deg, #ff00ff, #ffff00);
+                      box-shadow: 0 0 50px rgba(255, 255, 255, 0.9);
+                  }
+                  100% {
+                      transform: scale(1) rotate(720deg);
+                      background: linear-gradient(135deg, #3498db, #2ecc71);
+                  }
+              }
+
+              @keyframes shake {
+                  0% { transform: translateX(0); }
+                  25% { transform: translateX(-5px); }
+                  50% { transform: translateX(5px); }
+                  75% { transform: translateX(-5px); }
+                  100% { transform: translateX(0); }
+              }
 
         .confetti {
             position: absolute;
@@ -143,6 +143,61 @@
             box-shadow: 0 0 10px #ff4500, 0 0 20px #ff4500;
         }
 
+        .input-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px; /* Space between min and max inputs */
+      margin-bottom: 20px;
+  }
+
+  /* Ensure min and max containers are side by side with proper spacing */
+  #min-container, #max-container {
+      display: flex;
+      align-items: center;
+  }
+
+  /* Move the shuffle icon closer to the input for min */
+  #min-container .shuffle-icon {
+      margin-left: -10px; /* Move shuffle icon closer */
+      margin-right: 10px;
+  }
+
+  /* Spacing for max field shuffle icon */
+  #max-container .shuffle-icon {
+      margin-left: -10px;
+      margin-right: 20px;
+  }
+
+  /* Shuffle icon default style */
+  .shuffle-icon {
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #ff6f00;
+      transition: color 0.2s ease;
+  }
+
+  /* Shuffle icon hover style */
+  .shuffle-icon:hover {
+      color: #ffb347;
+  }
+
+  /* On mobile (screen width below 600px), stack the min and max inputs vertically */
+  @media (max-width: 600px) {
+      .input-container {
+          flex-direction: column;
+          align-items: flex-start;
+      }
+
+      #min-container, #max-container {
+          justify-content: space-between;
+          width: 100%; /* Make sure each container takes full width */
+      }
+  }
+
+
+
+
         input {
             padding: 15px;
             margin: 15px;
@@ -186,10 +241,21 @@
         <h1>The Hard Times Music League <br/>
             <span>Round 10 Number Generator</span>
         </h1>
+        <div class="input-container">
+    <div id="min-container">
         <label for="min">Min: </label>
         <input type="number" id="min" placeholder="Min" value="1">
+        <span class="shuffle-icon" onclick="shuffleMin()">🔀</span>
+    </div>
+
+    <div id="max-container">
         <label for="max">Max: </label>
         <input type="number" id="max" placeholder="Max" value="100">
+        <span class="shuffle-icon" onclick="shuffleMax()">🔀</span>
+    </div>
+</div>
+
+
         <div style="display: flex; justify-content: center; margin-top: 20px;">
             <button onclick="startSlot()">GO! <span>🚀</span></button>
         </div>
@@ -271,6 +337,26 @@
                     confetti.remove();
                 }, 1500);
             }
+        }
+
+        function shuffleMin() {
+            const minInput = document.getElementById('min');
+            const maxInput = document.getElementById('max');
+            const maxValue = parseInt(maxInput.value);
+
+            // Generate a random number between 1 and max - 1
+            const randomMin = getRandomInt(1, maxValue - 1);
+            minInput.value = randomMin;
+        }
+
+        function shuffleMax() {
+            const minInput = document.getElementById('min');
+            const maxInput = document.getElementById('max');
+            const minValue = parseInt(minInput.value);
+
+            // Generate a random number between min + 1 and 100000
+            const randomMax = getRandomInt(minValue + 1, 100000);
+            maxInput.value = randomMax;
         }
     </script>
 
