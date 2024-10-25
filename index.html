@@ -357,23 +357,27 @@
     }
 
     function setNumberFavicon(number) {
-      const canvas = document.createElement('canvas');
-      canvas.width = 64;
-      canvas.height = 64;
-      const ctx = canvas.getContext('2d');
+        const canvas = document.createElement('canvas');
+        canvas.width = 64;
+        canvas.height = 64;
+        const ctx = canvas.getContext('2d');
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-      ctx.fillStyle = 'black'; // Background color for the favicon
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+        ctx.fillStyle = 'black'; // Background color for the favicon
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.font = '48px sans-serif';
-      ctx.fillStyle = 'white'; // Text color for the number
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(number, canvas.width / 2, canvas.height / 2);
+        // Calculate the font size dynamically based on the number of digits
+        const numberLength = number.toString().length;
+        const fontSize = 48 - (numberLength - 1) * 6; // Reduce font size as number gets longer
 
-      const favicon = document.getElementById('dynamic-favicon');
-      favicon.href = canvas.toDataURL(); // Set the generated number as favicon
+        ctx.font = `${fontSize}px sans-serif`; // Dynamic font size
+        ctx.fillStyle = 'white'; // Text color for the number
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(number, canvas.width / 2, canvas.height / 2);
+
+        const favicon = document.getElementById('dynamic-favicon');
+        favicon.href = canvas.toDataURL(); // Set the generated number as favicon
     }
 
     function shuffleMin() {
