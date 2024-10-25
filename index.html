@@ -257,28 +257,9 @@
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&display=swap" rel="stylesheet">
   <link rel="icon" id="dynamic-favicon">
-
 </head>
 
 <body>
-  <script>
-    // Function to set emoji as the favicon
-    function setEmojiFavicon(emoji) {
-      const canvas = document.createElement('canvas');
-      canvas.width = 64;
-      canvas.height = 64;
-      const ctx = canvas.getContext('2d');
-      ctx.font = '64px serif';
-      ctx.fillText(emoji, 0, 64);
-
-      const favicon = document.getElementById('dynamic-favicon');
-      favicon.href = canvas.toDataURL();
-    }
-
-    // Call the function with the boot emoji
-    setEmojiFavicon('🥾');
-  </script>
-
   <div class="container">
     <div id="boot">🥾</div>
     <h1>The Hard Times Music League <br />
@@ -298,7 +279,6 @@
       </div>
     </div>
 
-
     <div style="display: flex; justify-content: center; margin-top: 20px;">
       <button onclick="startSlot()">GO! <span>🚀</span></button>
     </div>
@@ -315,15 +295,12 @@
       const max = parseInt(document.getElementById('max').value);
       let resultElement = document.getElementById('result');
 
-      // Reset to original state
       resultElement.style.background = 'rgba(34, 34, 34, 0.9)';
       resultElement.style.boxShadow = '0 0 15px rgba(0, 0, 0, 0.5)';
       resultElement.style.transform = 'scale(1)';
       resultElement.style.animation = '';
 
       let interval;
-
-      // Cycle through numbers like a slot machine
       let counter = 0;
       interval = setInterval(() => {
         resultElement.textContent = getRandomInt(min, max);
@@ -341,15 +318,16 @@
       setTimeout(() => {
         resultElement.textContent = finalNumber;
 
-        // Apply burst and confetti effect
         resultElement.style.animation = 'burst 0.4s ease-out, shake 0.2s ease-in-out';
         createConfetti(resultElement);
 
-        // Ensure final state is green and doesn't reset
         setTimeout(() => {
           resultElement.style.animation = '';
           resultElement.style.background = 'linear-gradient(135deg, #3498db, #2ecc71)';
         }, 400);
+
+        // Set the generated number as the favicon
+        setNumberFavicon(finalNumber);
       }, 500);
     }
 
@@ -362,32 +340,46 @@
         confetti.classList.add('confetti');
         confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
 
-        // Set random x and y values for animation
         const x = `${Math.random() * 400 - 200}px`;
         const y = `${Math.random() * 400 - 200}px`;
         confetti.style.setProperty('--x', x);
         confetti.style.setProperty('--y', y);
-
-        // Set initial position to the center of the result element
         confetti.style.left = '50%';
         confetti.style.top = '50%';
         confetti.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`;
 
         element.appendChild(confetti);
 
-        // Remove confetti after animation
         setTimeout(() => {
           confetti.remove();
         }, 1500);
       }
     }
 
+    function setNumberFavicon(number) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+      ctx.fillStyle = 'black'; // Background color for the favicon
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.font = '48px sans-serif';
+      ctx.fillStyle = 'white'; // Text color for the number
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(number, canvas.width / 2, canvas.height / 2);
+
+      const favicon = document.getElementById('dynamic-favicon');
+      favicon.href = canvas.toDataURL(); // Set the generated number as favicon
+    }
+
     function shuffleMin() {
       const minInput = document.getElementById('min');
       const maxInput = document.getElementById('max');
       const maxValue = parseInt(maxInput.value);
-
-      // Generate a random number between 1 and max - 1
       const randomMin = getRandomInt(1, maxValue - 1);
       minInput.value = randomMin;
     }
@@ -396,13 +388,10 @@
       const minInput = document.getElementById('min');
       const maxInput = document.getElementById('max');
       const minValue = parseInt(minInput.value);
-
-      // Generate a random number between min + 1 and 100000
       const randomMax = getRandomInt(minValue + 1, 100000);
       maxInput.value = randomMax;
     }
   </script>
-
 </body>
 
 </html>
